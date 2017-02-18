@@ -123,32 +123,32 @@ ft_printf/fast:
 	$(MAKE) -f CMakeFiles/ft_printf.dir/build.make CMakeFiles/ft_printf.dir/build
 .PHONY : ft_printf/fast
 
-main.o: main.cpp.o
+ft_printf.o: ft_printf.c.o
 
-.PHONY : main.o
+.PHONY : ft_printf.o
 
 # target to build an object file
-main.cpp.o:
-	$(MAKE) -f CMakeFiles/ft_printf.dir/build.make CMakeFiles/ft_printf.dir/main.cpp.o
-.PHONY : main.cpp.o
+ft_printf.c.o:
+	$(MAKE) -f CMakeFiles/ft_printf.dir/build.make CMakeFiles/ft_printf.dir/ft_printf.c.o
+.PHONY : ft_printf.c.o
 
-main.i: main.cpp.i
+ft_printf.i: ft_printf.c.i
 
-.PHONY : main.i
+.PHONY : ft_printf.i
 
 # target to preprocess a source file
-main.cpp.i:
-	$(MAKE) -f CMakeFiles/ft_printf.dir/build.make CMakeFiles/ft_printf.dir/main.cpp.i
-.PHONY : main.cpp.i
+ft_printf.c.i:
+	$(MAKE) -f CMakeFiles/ft_printf.dir/build.make CMakeFiles/ft_printf.dir/ft_printf.c.i
+.PHONY : ft_printf.c.i
 
-main.s: main.cpp.s
+ft_printf.s: ft_printf.c.s
 
-.PHONY : main.s
+.PHONY : ft_printf.s
 
 # target to generate assembly for a file
-main.cpp.s:
-	$(MAKE) -f CMakeFiles/ft_printf.dir/build.make CMakeFiles/ft_printf.dir/main.cpp.s
-.PHONY : main.cpp.s
+ft_printf.c.s:
+	$(MAKE) -f CMakeFiles/ft_printf.dir/build.make CMakeFiles/ft_printf.dir/ft_printf.c.s
+.PHONY : ft_printf.c.s
 
 # Help Target
 help:
@@ -159,9 +159,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... ft_printf"
-	@echo "... main.o"
-	@echo "... main.i"
-	@echo "... main.s"
+	@echo "... ft_printf.o"
+	@echo "... ft_printf.i"
+	@echo "... ft_printf.s"
 .PHONY : help
 
 
