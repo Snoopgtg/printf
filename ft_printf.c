@@ -2,6 +2,6 @@
 
 int main()
 {
-
+  printf("new");
 	return 0;
 }
