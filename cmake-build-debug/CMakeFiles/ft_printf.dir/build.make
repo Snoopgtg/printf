@@ -90,6 +90,7 @@ ft_printf_EXTERNAL_OBJECTS =
 
 ft_printf: CMakeFiles/ft_printf.dir/ft_printf.c.o
 ft_printf: CMakeFiles/ft_printf.dir/build.make
+ft_printf: ../libft.a
 ft_printf: CMakeFiles/ft_printf.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/nfs/2016/t/tgogol/ClionProjects/ft_printf/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking C executable ft_printf"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/ft_printf.dir/link.txt --verbose=$(VERBOSE)
