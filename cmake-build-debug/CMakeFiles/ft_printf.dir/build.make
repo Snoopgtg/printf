@@ -57,41 +57,42 @@ include CMakeFiles/ft_printf.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/ft_printf.dir/flags.make
 
-CMakeFiles/ft_printf.dir/main.cpp.o: CMakeFiles/ft_printf.dir/flags.make
-CMakeFiles/ft_printf.dir/main.cpp.o: ../main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/nfs/2016/t/tgogol/ClionProjects/ft_printf/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/ft_printf.dir/main.cpp.o"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/ft_printf.dir/main.cpp.o -c /nfs/2016/t/tgogol/ClionProjects/ft_printf/main.cpp
+CMakeFiles/ft_printf.dir/ft_printf.c.o: CMakeFiles/ft_printf.dir/flags.make
+CMakeFiles/ft_printf.dir/ft_printf.c.o: ../ft_printf.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/nfs/2016/t/tgogol/ClionProjects/ft_printf/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/ft_printf.dir/ft_printf.c.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/ft_printf.dir/ft_printf.c.o   -c /nfs/2016/t/tgogol/ClionProjects/ft_printf/ft_printf.c
 
-CMakeFiles/ft_printf.dir/main.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ft_printf.dir/main.cpp.i"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /nfs/2016/t/tgogol/ClionProjects/ft_printf/main.cpp > CMakeFiles/ft_printf.dir/main.cpp.i
+CMakeFiles/ft_printf.dir/ft_printf.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/ft_printf.dir/ft_printf.c.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /nfs/2016/t/tgogol/ClionProjects/ft_printf/ft_printf.c > CMakeFiles/ft_printf.dir/ft_printf.c.i
 
-CMakeFiles/ft_printf.dir/main.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ft_printf.dir/main.cpp.s"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /nfs/2016/t/tgogol/ClionProjects/ft_printf/main.cpp -o CMakeFiles/ft_printf.dir/main.cpp.s
+CMakeFiles/ft_printf.dir/ft_printf.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/ft_printf.dir/ft_printf.c.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /nfs/2016/t/tgogol/ClionProjects/ft_printf/ft_printf.c -o CMakeFiles/ft_printf.dir/ft_printf.c.s
 
-CMakeFiles/ft_printf.dir/main.cpp.o.requires:
+CMakeFiles/ft_printf.dir/ft_printf.c.o.requires:
 
-.PHONY : CMakeFiles/ft_printf.dir/main.cpp.o.requires
+.PHONY : CMakeFiles/ft_printf.dir/ft_printf.c.o.requires
 
-CMakeFiles/ft_printf.dir/main.cpp.o.provides: CMakeFiles/ft_printf.dir/main.cpp.o.requires
-	$(MAKE) -f CMakeFiles/ft_printf.dir/build.make CMakeFiles/ft_printf.dir/main.cpp.o.provides.build
-.PHONY : CMakeFiles/ft_printf.dir/main.cpp.o.provides
+CMakeFiles/ft_printf.dir/ft_printf.c.o.provides: CMakeFiles/ft_printf.dir/ft_printf.c.o.requires
+	$(MAKE) -f CMakeFiles/ft_printf.dir/build.make CMakeFiles/ft_printf.dir/ft_printf.c.o.provides.build
+.PHONY : CMakeFiles/ft_printf.dir/ft_printf.c.o.provides
 
-CMakeFiles/ft_printf.dir/main.cpp.o.provides.build: CMakeFiles/ft_printf.dir/main.cpp.o
+CMakeFiles/ft_printf.dir/ft_printf.c.o.provides.build: CMakeFiles/ft_printf.dir/ft_printf.c.o
 
 
 # Object files for target ft_printf
 ft_printf_OBJECTS = \
-"CMakeFiles/ft_printf.dir/main.cpp.o"
+"CMakeFiles/ft_printf.dir/ft_printf.c.o"
 
 # External object files for target ft_printf
 ft_printf_EXTERNAL_OBJECTS =
 
-ft_printf: CMakeFiles/ft_printf.dir/main.cpp.o
+ft_printf: CMakeFiles/ft_printf.dir/ft_printf.c.o
 ft_printf: CMakeFiles/ft_printf.dir/build.make
+ft_printf: ../libft.a
 ft_printf: CMakeFiles/ft_printf.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/nfs/2016/t/tgogol/ClionProjects/ft_printf/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable ft_printf"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/nfs/2016/t/tgogol/ClionProjects/ft_printf/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking C executable ft_printf"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/ft_printf.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -99,7 +100,7 @@ CMakeFiles/ft_printf.dir/build: ft_printf
 
 .PHONY : CMakeFiles/ft_printf.dir/build
 
-CMakeFiles/ft_printf.dir/requires: CMakeFiles/ft_printf.dir/main.cpp.o.requires
+CMakeFiles/ft_printf.dir/requires: CMakeFiles/ft_printf.dir/ft_printf.c.o.requires
 
 .PHONY : CMakeFiles/ft_printf.dir/requires
 

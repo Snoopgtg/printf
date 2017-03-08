@@ -82,7 +82,13 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/nfs/2016/t/tgogol/ClionProjects/ft_printf/main.cpp">
+		<Unit filename="/nfs/2016/t/tgogol/ClionProjects/ft_printf/ft_printf.c">
+			<Option target="ft_printf"/>
+		</Unit>
+		<Unit filename="/nfs/2016/t/tgogol/ClionProjects/ft_printf/ft_printf.h">
+			<Option target="ft_printf"/>
+		</Unit>
+		<Unit filename="/nfs/2016/t/tgogol/ClionProjects/ft_printf/libft.h">
 			<Option target="ft_printf"/>
 		</Unit>
 		<Unit filename="/nfs/2016/t/tgogol/ClionProjects/ft_printf/CMakeLists.txt">
