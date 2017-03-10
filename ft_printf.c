@@ -1,54 +1,4 @@
 #include "ft_printf.h"
-#include <stdio.h>
-
-void	fill_digit(char *s, t_prntf **base)
-{
-	int 	i;
-	char	*t;
-	i = 0;
-	t = s;
-	while (*t)
-	{
-		(*t == '0') ? (*base)->ziro = '0' : 0;
-		if (isdigit_withoutziro(*t))
-		{
-			(*base)->digit = ft_atoi(t) - 1;
-			if ((i + (int)ft_lenitoa((*base)->digit) < (*base)->str_len))
-			{
-				i += (int)ft_lenitoa((*base)->digit);
-				t += ft_lenitoa((*base)->digit);
-			}
-		}
-		t++;
-		i++;
-	}
-
-}
-
-void	fill_basetoziro(t_prntf *base)
-{
-	base->digit = 0;
-	base->minus = 0;
-	base->plus = 0;
-	base->ziro = 0;
-	base->hash = 0;
-	base->space = 0;
-}
-
-void 	fill_flags(char *s, t_prntf **base)
-{
-	(*base)->str_len = ft_strlen(s);
-	while (*s && (chack_afte_pers(*s) || ft_isdigit(*s)))
-	{
-		(*s == ' ') ? (*base)->space = ' ' : 0;
-		(*s == '+') ? (*base)->plus = '+' : 0;
-		(*s == '-') ? (*base)->minus = '-' : 0;
-		//(*s == '0') ? (*base)->ziro = '0' : 0;
-		(*s == '#') ? (*base)->hash = '#' : 0;
-		//(isdigit_withoutziro(*s)) ? (*base)->digit = ft_atoi(s) - 1 : 0;
-		s++;
-	}
-}
 
 int 	isdigit_withoutziro(char c)
 {
@@ -63,6 +13,24 @@ int		chack_afte_pers(char c)
 			|| c == '+' || c == '-' || c == '#')
 		return (1);
 	return (0);
+}
+
+int 	count_presents(char *s)
+{
+	int i;
+
+	i = 0;
+	while (*s)
+	{
+		if (*s == '%')
+		{
+			if (*(s + 1) == '%')
+				s++;
+			i++;
+		}
+		s++;
+	}
+	return (i);
 }
 
 void	print_ziroorspase(char **format, t_prntf *base, int ***r)
@@ -118,32 +86,55 @@ void	chack_only_txt(char *format, t_prntf *base, int **r)
 	}
 }
 
+void	print(t_prntf *base, int *r)
+{
+	(base->type == 'd') ? ft_putnbr(base->number) : 0 ;
+	(base->type == 'i') ? ft_putnbr(base->number) : 0 ;
+}
+
 void	fill_formater(char *format, t_prntf *base, int *r)
 {
-
+	//chack_d(format, base, &r);
 	chack_only_txt(format, base, &r);
 
+}
+
+void	chack_valist(char *s, va_list ap, t_prntf **base)
+{
+	while (*s && (chack_afte_pers(*s) || ft_isdigit(*s)))
+		s++;
+	((*base)->type == 'd') ? (*base)->number = va_arg(ap, int) : 0 ;
+	((*base)->type == 'i') ? (*base)->number = va_arg(ap, int) : 0 ;
+}
+
+void	new_main(char *format, t_prntf *base, va_list ap)
+{
+	while (*format)
+	{
+		if (*format == '%')
+		{
+			format++;
+			fill_flags(format, &base);
+			fill_digit(format, &base);
+			fill_type(format, &base);
+			chack_valist(format, ap, &base);
+		}
+		format++;
+	}
 }
 
 
 int		ft_printf(char *format, ...)
 {
-	int r;
+	int 	r;
+	va_list ap;
+	t_prntf base[1];
 
 	r = 0;
-	t_prntf base[1];
+	va_start(ap, format);
 	fill_basetoziro(base);
-	fill_formater(format, base, &r);
+	new_main(format, base, ap);
+	print(base, &r);
+	//fill_formater(format, base, &r);
 	return (r);
-}
-int main()
-{
-	int k;
-
-	k = ft_printf("%20.5%");
-	ft_printf("\n");
-	printf("%20.5%");
-	printf("k = %d", k);
-	//printf("[%ld]", (long)(-1));
-	return 0;
 }
