@@ -204,6 +204,33 @@ main.c.s:
 	$(MAKE) -f CMakeFiles/ft_printf.dir/build.make CMakeFiles/ft_printf.dir/main.c.s
 .PHONY : main.c.s
 
+putnbr.o: putnbr.c.o
+
+.PHONY : putnbr.o
+
+# target to build an object file
+putnbr.c.o:
+	$(MAKE) -f CMakeFiles/ft_printf.dir/build.make CMakeFiles/ft_printf.dir/putnbr.c.o
+.PHONY : putnbr.c.o
+
+putnbr.i: putnbr.c.i
+
+.PHONY : putnbr.i
+
+# target to preprocess a source file
+putnbr.c.i:
+	$(MAKE) -f CMakeFiles/ft_printf.dir/build.make CMakeFiles/ft_printf.dir/putnbr.c.i
+.PHONY : putnbr.c.i
+
+putnbr.s: putnbr.c.s
+
+.PHONY : putnbr.s
+
+# target to generate assembly for a file
+putnbr.c.s:
+	$(MAKE) -f CMakeFiles/ft_printf.dir/build.make CMakeFiles/ft_printf.dir/putnbr.c.s
+.PHONY : putnbr.c.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -222,6 +249,9 @@ help:
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... putnbr.o"
+	@echo "... putnbr.i"
+	@echo "... putnbr.s"
 .PHONY : help
 
 

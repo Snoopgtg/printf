@@ -13,3 +13,7 @@ CMakeFiles/ft_printf.dir/main.c.o: ../ft_printf.h
 CMakeFiles/ft_printf.dir/main.c.o: ../libft.h
 CMakeFiles/ft_printf.dir/main.c.o: ../main.c
 
+CMakeFiles/ft_printf.dir/putnbr.c.o: ../ft_printf.h
+CMakeFiles/ft_printf.dir/putnbr.c.o: ../libft.h
+CMakeFiles/ft_printf.dir/putnbr.c.o: ../putnbr.c
+

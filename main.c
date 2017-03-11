@@ -5,6 +5,7 @@ int main()
 	int m;
 	int n;
 
+
 	//-------------empty--------------------------------------
 	/*m = ft_printf("%h5l%l ynu", 42);
 	printf("m = %d\n", m);
@@ -13,11 +14,12 @@ int main()
 	printf("n = %d", n);*/
 
 	//--------------%d----------------------------------------
-	m = ft_printf("%i", -37);
-	printf("m = %d\n", m);
-	ft_printf("\n");
-	n = printf("%c", 'c');
-	printf("n = %d", n);
+	ft_printf("my = %+d", 123);
+	//printf("\nm = %d\n", m);
+	printf("\n");
+
+	n = printf("no = %+d", 123);
+	printf("\nn = %d", n);
 	//printf("[%ld]", (long)(-1));
 	return 0;
 }

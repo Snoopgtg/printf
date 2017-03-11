@@ -64,3 +64,11 @@ void	fill_type(char *s, t_prntf **base)
 	if (chack_type(*s))
 		(*base)->type = *s;
 }
+
+
+void	fill_base(char *format, t_prntf *base)
+{
+	fill_flags(format, &base);
+	fill_digit(format, &base);
+	fill_type(format, &base);
+}
