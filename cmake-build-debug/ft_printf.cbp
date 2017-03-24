@@ -85,6 +85,9 @@
 		<Unit filename="/nfs/2016/t/tgogol/ClionProjects/ft_printf/fill.c">
 			<Option target="ft_printf"/>
 		</Unit>
+		<Unit filename="/nfs/2016/t/tgogol/ClionProjects/ft_printf/ft_itoa_base.c">
+			<Option target="ft_printf"/>
+		</Unit>
 		<Unit filename="/nfs/2016/t/tgogol/ClionProjects/ft_printf/ft_printf.c">
 			<Option target="ft_printf"/>
 		</Unit>
