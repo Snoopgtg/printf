@@ -158,15 +158,15 @@ void	print_di(t_prntf **base)
 	((*base)->length == 'j' || (*base)->length =='z') ? (*base)->str = ft_itoa_base((intmax_t)((*base)->number), 10) : 0;
 	if (*((*base)->str))
 		f = 1;
-	((*base)->space == ' ' && !f) ? write(1, " ", 1) : 0;
-	((*base)->ziro == '0' && (*base)->plus == '+' && !f) ? write(1, "+", 1) : write(1, "-", 1);
+	((*base)->space == ' ') ? write(1, " ", 1) : 0;
+	((*base)->ziro == '0' && (*base)->plus == '+') ? write(1, "+", 1) : 0;
 	if ((*base)->digit != 0 && (*base)->minus == 0)
-		((*base)->plus == '+' && !f) ? print_length(*base, 1, 0, 10) : print_length(*base, 0, 0, 10);
-	((*base)->ziro == 0 && (*base)->plus == '+' && !f) ? write(1, "+", 1) : 0;
+		((*base)->plus == '+') ? print_length(*base, 1, 0, 10) : print_length(*base, 0, 0, 10);
+	((*base)->ziro == 0 && (*base)->plus == '+') ? write(1, "+", 1) : 0;
 	(((*base)->plus == '+' && (*base)->minus == '-') || (*base)->minus == '-') ? ft_putstr((*base)->str) : 0;
 	if ((*base)->minus == '-')
-		((*base)->plus == '+' && !f) ? print_length(*base, 1, 0, 10) : print_length(*base, 0, 0, 10);
-	(((*base)->plus == '+' && !f && (*base)->minus != '-' ) || (*base)->minus != '-') ? ft_putstr((*base)->str) : 0;
+		((*base)->plus == '+') ? print_length(*base, 1, 0, 10) : print_length(*base, 0, 0, 10);
+	(((*base)->plus == '+' && (*base)->minus != '-' ) || (*base)->minus != '-') ? ft_putstr((*base)->str) : 0;
 }
 
 void	print_upper_d(t_prntf *base)
