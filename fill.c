@@ -49,7 +49,8 @@ void	fill_basetoziro(t_prntf *base)
 	base->type = 0;
 	base->length = 0;
 	base->r = 0;
-	base->str = ft_strnew(0);
+	base->str = "";
+	base->width = -1;
 }
 
 int		chack_type(char c)
