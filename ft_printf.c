@@ -128,6 +128,39 @@ void	print_width(t_prntf *base)
 	}
 }
 
+void	print_width_m(t_prntf *base)
+{
+	size_t l;
+	size_t w;
+
+	l = ft_strlen(base->str);
+	w = ft_strlen(base->str);
+	w = (w >= base->width) ? 0 : base->width - w;
+	l = (l >= base->digit) ? 0 : base->digit - w - (ft_strlen(base->str));
+	if (base->minus != '-')
+	{
+		l--;
+		while (l-- > 0)
+			write(1, " ", 1);
+		write(1, "-", 1);
+		w++;
+		while (w-- > 0)
+			write(1, "0", 1);
+		ft_putstr(base->str + 1);
+	}
+	if (base->minus == '-')
+	{
+		write(1, "-", 1);
+		w++;
+		while (w-- > 0)
+			write(1, "0", 1);
+		ft_putstr(base->str + 1);
+		l--;
+		while (l-- > 0)
+			write(1, " ", 1);
+	}
+}
+
 void 	print_length(t_prntf *base, int fhesh, int fchar, int fstr)
 {
 
@@ -189,9 +222,11 @@ void	print_di(t_prntf *base)
 	(base->length == 'l') ? base->str = ft_itoa_base((long)(base->number), 10) : 0;
 	(base->length == 'L') ? base->str = ft_itoa_base((long long)(base->number), 10) : 0;
 	(base->length == 'j' || base->length =='z') ? base->str = ft_itoa_base((intmax_t)(base->number), 10) : 0;
-	if (base->width != -1 && !(base->f_width))
+	if (base->width != -1 && !(base->f_width) && !chack_minus_in_type(*(base->str)))
 		print_width(base);
-	if (chack_minus_in_type(*(base->str)))
+	if (base->width != -1 && !(base->f_width) && chack_minus_in_type(*(base->str)))
+		print_width_m(base);
+	else if (chack_minus_in_type(*(base->str)) && base->width == -1)
 		print_di_m(base);
 	else if (base->width == -1 || (base->f_width))
 	{
