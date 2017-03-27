@@ -101,17 +101,44 @@ size_t	len_oct_hex(intmax_t n, int base)
 	return (i);
 }
 
-void print_length(t_prntf *base, int fhesh, int fchar, int fstr)
+void	print_width(t_prntf *base)
+{
+	size_t l;
+	size_t w;
+
+	l = ft_strlen(base->str);
+	w = ft_strlen(base->str);
+	w = (w >= base->width) ? 0 : base->width - w;
+	l = (l >= base->digit) ? 0 : base->digit - w - (ft_strlen(base->str));
+	if (base->minus != '-')
+	{
+		while (l-- > 0)
+			write(1, " ", 1);
+		while (w-- > 0)
+			write(1, "0", 1);
+		ft_putstr(base->str);
+	}
+	if (base->minus == '-')
+	{
+		while (w-- > 0)
+			write(1, "0", 1);
+		ft_putstr(base->str);
+		while (l-- > 0)
+			write(1, " ", 1);
+	}
+}
+
+void 	print_length(t_prntf *base, int fhesh, int fchar, int fstr)
 {
 
 /*
- * fhesh для корректного виводу вісмковій системі коли є #
- * 		 та для корректного виводу вказівника;
- * fchar для корректного виводу чарів;
- * fstr = 1 для корректного виводу строкі;
- * fstr = 10 для d, i, u;
- * fstr = 16 для x, X;
- * fstr = 8  для o, O;
+ ** fhesh для корректного виводу вісмковій системі коли є #
+ ** 		 та для корректного виводу вказівника;
+ ** fchar для корректного виводу чарів;
+ ** fstr = 1 для корректного виводу строкі;
+ ** fstr = 10 для d, i, u;
+ ** fstr = 16 для x, X;
+ ** fstr = 8  для o, O;
  */
 
 	size_t c;
@@ -145,56 +172,77 @@ void	print_p(t_prntf *base)
 	(base->minus == '-') ? print_length(base, 2, 0, 16) : 0;
 }
 
-void	print_di(t_prntf **base)
+void 	print_di_m(t_prntf *base)
 {
-	int f;
+	base->ziro == '0' ? write(1, "-", 1) : 0;
+	(base->digit != 0 && base->minus == 0) ? print_length(base, 0, 0, 10) : 0;
+	(base->minus == '-') ? ft_putstr((base)->str) : 0;
+	(base->minus == '-') ? print_length(base, 0, 0, 10) : 0;
+	(base->minus != '-') ? ft_putstr(base->str + 1) : 0;
+}
 
-	f = 0;
-	((*base)->length == 0) ? (*base)->str = ft_itoa_base((int)((*base)->number), 10) : 0;
-	((*base)->length == 'H') ? (*base)->str = ft_itoa_base((signed char)((*base)->number), 10) : 0;
-	((*base)->length == 'h') ? (*base)->str = ft_itoa_base((short)((*base)->number), 10) : 0;
-	((*base)->length == 'l') ? (*base)->str = ft_itoa_base((long)((*base)->number), 10) : 0;
-	((*base)->length == 'L') ? (*base)->str = ft_itoa_base((long long)((*base)->number), 10) : 0;
-	((*base)->length == 'j' || (*base)->length =='z') ? (*base)->str = ft_itoa_base((intmax_t)((*base)->number), 10) : 0;
-	if (*((*base)->str))
-		f = 1;
-	((*base)->space == ' ') ? write(1, " ", 1) : 0;
-	((*base)->ziro == '0' && (*base)->plus == '+') ? write(1, "+", 1) : 0;
-	if ((*base)->digit != 0 && (*base)->minus == 0)
-		((*base)->plus == '+') ? print_length(*base, 1, 0, 10) : print_length(*base, 0, 0, 10);
-	((*base)->ziro == 0 && (*base)->plus == '+') ? write(1, "+", 1) : 0;
-	(((*base)->plus == '+' && (*base)->minus == '-') || (*base)->minus == '-') ? ft_putstr((*base)->str) : 0;
-	if ((*base)->minus == '-')
-		((*base)->plus == '+') ? print_length(*base, 1, 0, 10) : print_length(*base, 0, 0, 10);
-	(((*base)->plus == '+' && (*base)->minus != '-' ) || (*base)->minus != '-') ? ft_putstr((*base)->str) : 0;
+void	print_di(t_prntf *base)
+{
+	(base->length == 0) ? base->str = ft_itoa_base((int)(base->number), 10) : 0;
+	(base->length == 'H') ? base->str = ft_itoa_base((signed char)(base->number), 10) : 0;
+	(base->length == 'h') ? base->str = ft_itoa_base((short)(base->number), 10) : 0;
+	(base->length == 'l') ? base->str = ft_itoa_base((long)(base->number), 10) : 0;
+	(base->length == 'L') ? base->str = ft_itoa_base((long long)(base->number), 10) : 0;
+	(base->length == 'j' || base->length =='z') ? base->str = ft_itoa_base((intmax_t)(base->number), 10) : 0;
+	if (base->width != -1 && !(base->f_width))
+		print_width(base);
+	if (chack_minus_in_type(*(base->str)))
+		print_di_m(base);
+	else if (base->width == -1 || (base->f_width))
+	{
+		(base->space == ' ') ? write(1, " ", 1) : 0;
+		(base->ziro == '0' && base->plus == '+') ? write(1, "+", 1) : 0;
+		if (base->digit != 0 && base->minus == 0)
+			(base->plus == '+') ? print_length(base, 1, 0, 10) : print_length(base, 0, 0, 10);
+		(base->ziro == 0 && base->plus == '+') ? write(1, "+", 1) : 0;
+		((base->plus == '+' && base->minus == '-') || base->minus == '-') ? ft_putstr(base->str) : 0;
+		if (base->minus == '-')
+			(base->plus == '+') ? print_length(base, 1, 0, 10) : print_length(base, 0, 0, 10);
+		((base->plus == '+' && base->minus != '-') || base->minus != '-') ? ft_putstr(base->str) : 0;
+	}
 }
 
 void	print_upper_d(t_prntf *base)
 {
-	(base->space == ' ') ? write(1, " ", 1) : 0;
-	(base->digit != 0 && base->minus == 0) ? print_length(base, 0, 0, 10) : 0;
 	if (base->length == 0 || base->length == 'h' || base->length == 'H' || base->length == 'l')
-		ft_putnbrl((long)(base->number));
-	(base->length == 'L') ? ft_putnbrll((long long)(base->number)) : 0;
-	(base->length == 'j') ? ft_putnbrimt((intmax_t)(base->number)) : 0;
-	(base->length == 'z') ? ft_putnbrimt((size_t)(base->number)) : 0;
-	(base->minus == '-') ? print_length(base, 0, 0, 10) : 0;
-
+		base->str = ft_itoa_base((long)(base->number), 10);
+	(base->length == 'L') ? base->str = ft_itoa_base((long long)(base->number), 10) : 0;
+	(base->length == 'j' || base->length =='z') ? base->str = ft_itoa_base((intmax_t)(base->number), 10) : 0;
+	if (chack_minus_in_type(*(base->str)))
+		print_di_m(base);
+	else
+	{
+		(base->space == ' ') ? write(1, " ", 1) : 0;
+		(base->ziro == '0' && base->plus == '+') ? write(1, "+", 1) : 0;
+		if (base->digit != 0 && base->minus == 0)
+			(base->plus == '+') ? print_length(base, 1, 0, 10) : print_length(base, 0, 0, 10);
+		(base->ziro == 0 && base->plus == '+') ? write(1, "+", 1) : 0;
+		((base->plus == '+' && base->minus == '-') || base->minus == '-') ? ft_putstr(base->str) : 0;
+		if (base->minus == '-')
+			(base->plus == '+') ? print_length(base, 1, 0, 10) : print_length(base, 0, 0, 10);
+		((base->plus == '+' && base->minus != '-') || base->minus != '-') ? ft_putstr(base->str) : 0;
+	}
 }
 
 void	print_o(t_prntf *base)
 {
+	(base->length == 0) ? base->str = ft_itoa_base_pf((unsigned int)(base->number), 8, 'x') : 0;
+	(base->length == 'H') ? base->str = ft_itoa_base_pf((unsigned char)(base->number), 8, 'x') : 0;
+	(base->length == 'h') ? base->str = ft_itoa_base_pf((unsigned short )(base->number), 8, 'x') : 0;
+	(base->length == 'l') ? base->str = ft_itoa_base_pf((unsigned long )(base->number), 8, 'x') : 0;
+	(base->length == 'L') ? base->str = ft_itoa_base_pf((unsigned long long)(base->number), 8, 'x') : 0;
+	(base->length == 'j') ? base->str = ft_itoa_base_pf((uintmax_t)(base->number), 8, 'x') : 0;
+	(base->length == 'z') ? base->str = ft_itoa_base_pf((size_t)(base->number), 8, 'x') : 0;
 
 	if (base->digit != 0 && base->minus == 0)
 		(base->hash == '#') ? print_length(base, 1, 0, 8) : print_length(base, 0, 0, 8);
 	(base->hash == '#') ? write(1, "0", 1) : 0;
-	(base->length == 0) ? ft_putstr(ft_itoa_base_pf((unsigned int)(base->number), 8, 'x')) : 0;
-	(base->length == 'H') ? ft_putstr(ft_itoa_base_pf((unsigned char)(base->number), 8, 'x')) : 0;
-	(base->length == 'h') ? ft_putstr(ft_itoa_base_pf((unsigned short )(base->number), 8, 'x')) : 0;
-	(base->length == 'l') ? ft_putstr(ft_itoa_base_pf((unsigned long )(base->number), 8, 'x')) : 0;
-	(base->length == 'L') ? ft_putstr(ft_itoa_base_pf((unsigned long long)(base->number), 8, 'x')) : 0;
-	(base->length == 'j') ? ft_putstr(ft_itoa_base_pf((uintmax_t)(base->number), 8, 'x')) : 0;
-	(base->length == 'z') ? ft_putstr(ft_itoa_base_pf((size_t)(base->number), 8, 'x')) : 0;
+	ft_putstr(base->str);
 	if (base->minus == '-')
 		(base->hash == '#') ? print_length(base, 1, 0, 8) : print_length(base, 0, 0, 8);
 }
@@ -272,7 +320,7 @@ void	print_c(t_prntf *base)
 
 void	print(t_prntf *base)
 {
-	(base->type == 'd' || base->type == 'i') ? print_di(&base) : 0;
+	(base->type == 'd' || base->type == 'i') ? print_di(base) : 0;
 	(base->type == 'D') ? print_upper_d(base) : 0;
 	(base->type == 's') ? print_s(base) : 0;
 	(base->type == 'c') ? print_c(base) : 0;
