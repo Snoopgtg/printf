@@ -120,9 +120,11 @@ void	print_width(t_prntf *base)
 	}
 	if (base->minus == '-')
 	{
+		(base->space == ' ') ? write(1, " ", 1) : 0;
 		while (w-- > 0)
 			write(1, "0", 1);
 		ft_putstr(base->str);
+		(base->space == ' ') ? l-- : 0;
 		while (l-- > 0)
 			write(1, " ", 1);
 	}
@@ -248,9 +250,13 @@ void	print_upper_d(t_prntf *base)
 		base->str = ft_itoa_base((long)(base->number), 10);
 	(base->length == 'L') ? base->str = ft_itoa_base((long long)(base->number), 10) : 0;
 	(base->length == 'j' || base->length =='z') ? base->str = ft_itoa_base((intmax_t)(base->number), 10) : 0;
-	if (chack_minus_in_type(*(base->str)))
+	if (base->width != -1 && !(base->f_width) && !chack_minus_in_type(*(base->str)))
+		print_width(base);
+	if (base->width != -1 && !(base->f_width) && chack_minus_in_type(*(base->str)))
+		print_width_m(base);
+	else if (chack_minus_in_type(*(base->str)) && base->width == -1)
 		print_di_m(base);
-	else
+	else if (base->width == -1 || (base->f_width))
 	{
 		(base->space == ' ') ? write(1, " ", 1) : 0;
 		(base->ziro == '0' && base->plus == '+') ? write(1, "+", 1) : 0;
@@ -273,12 +279,13 @@ void	print_o(t_prntf *base)
 	(base->length == 'L') ? base->str = ft_itoa_base_pf((unsigned long long)(base->number), 8, 'x') : 0;
 	(base->length == 'j') ? base->str = ft_itoa_base_pf((uintmax_t)(base->number), 8, 'x') : 0;
 	(base->length == 'z') ? base->str = ft_itoa_base_pf((size_t)(base->number), 8, 'x') : 0;
-
-	if (base->digit != 0 && base->minus == 0)
+	if (base->width != -1)
+		print_width(base);
+	else if (base->digit != 0 && base->minus == 0)
 		(base->hash == '#') ? print_length(base, 1, 0, 8) : print_length(base, 0, 0, 8);
 	(base->hash == '#') ? write(1, "0", 1) : 0;
-	ft_putstr(base->str);
-	if (base->minus == '-')
+	(base->width == -1) ? ft_putstr(base->str) : 0;
+	if (base->minus == '-' && base->width == -1)
 		(base->hash == '#') ? print_length(base, 1, 0, 8) : print_length(base, 0, 0, 8);
 }
 
