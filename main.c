@@ -6,12 +6,12 @@ int main()
 	int n;
 
 	//-------------empty--------------------------------------
-	/*m = ft_printf("%h5l%l ynu", 42);
+	/*m = ft_printf("%h05l%l ynu");
 	printf("m = %d\n", m);
 	ft_printf("\n");
-	n = printf("%h5l%l ynu", 42);
-	printf("n = %d", n);*/
-
+	n = printf("%h05l%l ynu");
+	printf("n = %d", n);
+*/
 	//-------------------%p-----------------------------------
 	/*char c[] ="dfdf";
 	char *k;
@@ -19,92 +19,95 @@ int main()
 
 	k = c;
 	p = k;
-	m = ft_printf("[% 022p]", p);
+	m = ft_printf("[%-22.18p]", p);
 	printf("\nm = %d\n", m);
 	printf("\n");
 	printf("\n");
-	n = printf("[% 022p]", p);
+	n = printf("[%-22.18p]", p);
 	printf("\nn = %d\n", n);*/
 
+	//перевірити точність і довжину*******************************************
+
 	//--------------%d----------------------------------------
-	ft_printf("[% 021d]", 37);
+	/*ft_printf("[% -+23.1d]", -45);
 	//printf("\nm = %d\n", m);
 	printf("\n");
 	printf("\n");
 
-	n = printf("[% 021d]", 37);
-	printf("\nn = %d\n", n);
+	n = printf("[% -+23.1d]", -45);
+	printf("\nn = %d\n", n);*/
+
 
 	//------------------%D--------------------------------
-	/*ft_printf("[% -23D]", 9223372036854775807);
+	/*ft_printf("[% -23.12D]", -45);
 	//printf("\nm = %d\n", m);
 	printf("\n");
 	printf("\n");
 
-	n = printf("[% -23D]", 9223372036854775807);
+	n = printf("[% -23.12D]", -45);
 	printf("\nn = %d\n", n);*/
 
 	//------------------%o--------------------------------
-	/*ft_printf("[% 010o]", 255);
+	/*ft_printf("[%#+14.4o]", 45);
 	//printf("\nm = %d\n", m);
 	printf("\n");
 	printf("\n");
 
-	n = printf("[% 010o]", 255);
+	n = printf("[%#+14.4o]", 45);
 	printf("\nn = %d\n", n);*/
 
 	//------------------%O--------------------------------
-	/*ft_printf("% -036O|", -9223372036854775807);
+	/*ft_printf("[% -036O]", -9223372036854775807);
 	//printf("\nm = %d\n", m);
 	printf("\n");
 	printf("\n");
 
-	n = printf("% -036O|", -9223372036854775807);
+	n = printf("[% -036O]", -9223372036854775807);
 	printf("\nn = %d\n", n);*/
 
 	//------------------%u--------------------------------
-	/*ft_printf("[% -021u]", -129);
+	/*ft_printf("[%12.4hhu]", 255);
 	//printf("\nm = %d\n", m);
 	printf("\n");
 	printf("\n");
 
-	n = printf("[% -021u]", -129);
+	n = printf("[%12.4hhu]", 255);
 	printf("\nn = %d\n", n);*/
 
 	//------------------%U--------------------------------
-	/*ft_printf("[%09U]", 65536);
+	/*ft_printf("[%9.4U]", 65536);
 	//printf("\nm = %d\n", m);
 	printf("\n");
 	printf("\n");
 
-	n = printf("[%09U]", 65536);
+	n = printf("[%9.4U]", 65536);
 	printf("\nn = %d\n", n);*/
 
 	//-------------------%xX------------------------------------
-	/*ft_printf("% -09x]", 42949672);
+	/*ft_printf("[%#5.1x]", 42);
 	//printf("\nm = %d\n", m);
 	printf("\n");
 	printf("\n");
 
-	n = printf("% -09x]", 42949672);
+	n = printf("[%#5.1x]", 42);
 	printf("\nn = %d\n", n);*/
 
 	//------------------%s--------------------------------
-	/*ft_printf("% 012s", "asddd");
-	//printf("\nm = %d\n", m);
+	/*m = ft_printf("[%012.2s]", "zap");
+	printf("\nm = %d\n", m);
 	printf("\n");
 	printf("\n");
 
-	n = printf("% 012s", "asddd");
+	n = printf("[%012.2s]", "zap");
 	printf("\nn = %d\n", n);*/
 
 	//------------------%c--------------------------------
-	/*ft_printf("[%c]", 65);
+	/*ft_printf("[%.yod]", 0);
 	//printf("\nm = %d\n", m);
 	printf("\n");
 	printf("\n");
 
-	n = printf("[%c]", 65);
+	n = printf("[% -12.yod]");
 	printf("\nn = %d\n", n);*/
 
 	//------------------%hd--------------------------------
@@ -165,15 +168,14 @@ int main()
 	printf("\nn = %d\n", n);*/
 
 	//------------------%hhx--------------------------------
-	/*ft_printf("[%#-12x]", 256);
-	//printf("\nm = %d\n", m);
+	/*m = ft_printf("[% 12 h . \nd yodav]", 10);
+	printf("\nm = %d\n", m);
 	printf("\n");
 	printf("\n");
 
-	n = printf("[%#-12x]", 256);
+	n = printf("[% 12 h . \nd yodav]", 10);
 	printf("\nn = %d\n", n);*/
 
 
-	//n = printf("%08d", -12);*********************************
 	return 0;
 }
