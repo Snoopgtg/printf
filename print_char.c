@@ -28,7 +28,7 @@ void	print_width(t_prntf *bs, int fhesh, int fchar)
 	int f;
 
 	f = 1;
-	c = ((bs->mdf == 'l' && bs->tp == 's') || bs->tp == 'S') ? ft_strlen_utf8(bs->nbr) : (int)ft_strlen(bs->str);
+	c = (int)ft_strlen(bs->str);
 	if (c <= bs->nw)
 	{
 		c = bs->nw - c - fhesh + fchar;
