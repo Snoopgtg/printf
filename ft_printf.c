@@ -1,149 +1,89 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tgogol <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/04/11 14:24:11 by tgogol            #+#    #+#             */
+/*   Updated: 2017/04/11 14:24:33 by tgogol           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
-#include <stdio.h>
 
-void	fill_digit(char *s, t_prntf **base)
+void		ft_strclear(char **s, char **str)
 {
-	int 	i;
-	char	*t;
-	i = 0;
-	t = s;
-	while (*t)
+	if (*s && ft_strcmp(*s, "0"))
 	{
-		(*t == '0') ? (*base)->ziro = '0' : 0;
-		if (isdigit_withoutziro(*t))
-		{
-			(*base)->digit = ft_atoi(t) - 1;
-			if ((i + (int)ft_lenitoa((*base)->digit) < (*base)->str_len))
-			{
-				i += (int)ft_lenitoa((*base)->digit);
-				t += ft_lenitoa((*base)->digit);
-			}
-		}
-		t++;
-		i++;
+		*str = *s;
+		ft_strdel(s);
 	}
-
+	else
+		*str = *s;
 }
 
-void	fill_basetoziro(t_prntf *base)
+void		skip_flags_length_type(char **s, t_prntf *bs)
 {
-	base->digit = 0;
-	base->minus = 0;
-	base->plus = 0;
-	base->ziro = 0;
-	base->hash = 0;
-	base->space = 0;
-}
-
-void 	fill_flags(char *s, t_prntf **base)
-{
-	(*base)->str_len = ft_strlen(s);
-	while (*s && (chack_afte_pers(*s) || ft_isdigit(*s)))
+	while (**s && (check_flags(**s) || check_length(**s) || ft_isdigit(**s)
+		|| bs->tp == **s))
 	{
-		(*s == ' ') ? (*base)->space = ' ' : 0;
-		(*s == '+') ? (*base)->plus = '+' : 0;
-		(*s == '-') ? (*base)->minus = '-' : 0;
-		//(*s == '0') ? (*base)->ziro = '0' : 0;
-		(*s == '#') ? (*base)->hash = '#' : 0;
-		//(isdigit_withoutziro(*s)) ? (*base)->digit = ft_atoi(s) - 1 : 0;
+		if (bs->tp != 0 && bs->tp == **s)
+		{
+			(*s)++;
+			break ;
+		}
+		(*s)++;
+	}
+}
+
+static void	check_valist(char *s, va_list ap, t_prntf *bs)
+{
+	while (*s && (check_afte_pers(*s) || ft_isdigit(*s)))
 		s++;
-	}
-}
-
-int 	isdigit_withoutziro(char c)
-{
-	if (c >= '1' && c <= '9')
-		return (1);
-	return (0);
-}
-
-int		chack_afte_pers(char c)
-{
-	if (c == 'h' || c == 'l' || c == 'j' || c == 'z' || c == ' ' || c == '.'
-			|| c == '+' || c == '-' || c == '#')
-		return (1);
-	return (0);
-}
-
-void	print_ziroorspase(char **format, t_prntf *base, int ***r)
-{
-	int f;
-
-	f = 0;
-	if ((chack_afte_pers(**format) || ft_isdigit(**format)) && **format)
+	if (check_type(*s))
+		bs->nbr = va_arg(ap, void *);
+	else
 	{
-		if (base->minus == '-')
+		if (*s)
 		{
-			while ((chack_afte_pers(**format) || ft_isdigit(**format)) && **format)
-				(*format)++;
-			(**format) ? write(1, &(**format), 1) : 0 ;
-			(**format) ? (*format)++ : 0 ;
-			f = 0;
-			(***r)++;
-		}
-		else
-			(base->ziro == '0') ? f = 1 : 0;
-		(***r) += base->digit;
-		while (base->digit > 0)
-		{
-			(!f) ? write(1, " ", 1) : write(1, "0", 1);
-			(base->digit)--;
+			bs->tp = *s;
+			bs->nbr = (void *)(size_t)(*s);
 		}
 	}
 }
 
-void	chack_only_txt(char *format, t_prntf *base, int **r)
+static void	new_main(char *format, t_prntf *bs, va_list ap)
 {
 	while (*format)
 	{
-		if (*format == '%' && format++)
+		print_symbol(&format, bs);
+		if (*format == '%')
 		{
-			fill_flags(format, &base);
-			fill_digit(format, &base);
-			print_ziroorspase(&format, base, &r);
-			while (chack_afte_pers(*format) || ft_isdigit(*format))
-				format++;
-			if (*format)
-			{
-				write(1, &(*format), 1);
-				(**r)++;
-			}
+			format++;
+			fill_flags(format, bs);
+			fill_digit(format, bs, ap);
+			fill_type(format, &bs->tp);
+			fill_modificator(format, &bs->mdf);
+			fill_priority(&bs);
+			fill_bitoa(bs->tp, &bs->bfita);
+			check_valist(format, ap, bs);
+			skip_flags_length_type(&format, bs);
+			print(bs);
+			fill_basetoziro(bs);
 		}
-		else
-		{
-			write(1, &(*format), 1);
-			(**r)++;
-		}
-		(*format) ? format++ : 0 ;
 	}
 }
 
-void	fill_formater(char *format, t_prntf *base, int *r)
+int			ft_printf(char *format, ...)
 {
+	va_list ap;
+	t_prntf bs;
 
-	chack_only_txt(format, base, &r);
-
-}
-
-
-int		ft_printf(char *format, ...)
-{
-	int r;
-
-	r = 0;
-	t_prntf base[1];
-	fill_basetoziro(base);
-	fill_formater(format, base, &r);
-	return (r);
-}
-int main()
-{
-	int k;
-
-	k = ft_printf("%20.5%");
-	ft_printf("\n");
-	printf("%20.5%");
-	printf("k = %d", k);
-	//printf("[%ld]", (long)(-1));
-	return 0;
+	bs.r = 0;
+	va_start(ap, format);
+	fill_basetoziro(&bs);
+	new_main(format, &bs, ap);
+	va_end(ap);
+	return (bs.r);
 }
