@@ -53,46 +53,33 @@ void	print_s(t_prntf *bs)
 	int p;
 	int l;
 	int k;
-	int f;
 
-	f = 0;
 	if ((char *)(bs->nbr) == NULL)
-	{
 		bs->str = "(null)";
-		f = 1;
-	}
 	else
 		bs->str = ((char *)(bs->nbr));
 	if (bs->prc != -1)
 	{
-		k = ((bs->mdf == 'l' && bs->tp == 's') || bs->tp == 'S') ? ft_strlen_utf8(bs->nbr) : (int)ft_strlen(bs->str);
+		k = (int)ft_strlen(bs->str);
 		p = (k > bs->prc) ? bs->prc : k;
 		l = (bs->nw - p);
 		(!bs->m && bs->z) ? print_aka_flags(l, '0', bs) : 0;
 		(!bs->m && !bs->z) ? print_aka_flags(l, ' ', bs) : 0;
-		if (f || (bs->tp != 'S' && bs->mdf != 'l'))
-		{
-			write(1, (bs->str), p);
-			bs->r += p;
-		}
-		else if (bs->tp == 'S' || bs->mdf == 'l')
-			print_upper_s(bs->nbr, &bs->r, p, 0);
+		write(1, (bs->str), p);
+		bs->r += p;
 		(bs->m && bs->z) ? print_aka_flags(l, '0', bs) : 0;
 		(bs->m && !bs->z) ? print_aka_flags(l, ' ', bs) : 0;
 	}
-	(bs->nw != 0 && !bs->m && bs->prc == -1) ? print_width(bs, 0, 0) : 0;
-	if (f || (bs->prc == -1 && bs->tp != 'S' && bs->mdf != 'l'))
+	(bs->nw != 0 && !bs->m && bs->prc == -1) ? print_width(
+			bs, 0, 0) : 0;
+	if (bs->prc == -1)
 		print_aka_flags(1, 'p', bs);
-	else if (bs->prc == -1 && (bs->tp == 'S' || bs->mdf == 'l'))
-		print_upper_s(bs->nbr, &bs->r, 0, 1);
 	(bs->m && bs->prc == -1) ? print_width(bs, 0, 0) : 0;
 }
 
 void	print_c(t_prntf *bs)
 {
-	((bs->mdf == 'l' && bs->tp == 'c') || bs->tp == 'C') ? check_bit((int *)(&bs->nbr), &bs->r) : 0;
 	(bs->nw != 0 && !bs->m) ? print_width(bs, 1, 0) : 0;
-	if (bs->mdf != 'l' && bs->tp != 'C')
 	{
 		write(1, &(bs->nbr), 1);
 		bs->r++;
@@ -102,10 +89,10 @@ void	print_c(t_prntf *bs)
 
 void	print(t_prntf *bs)
 {
-	if (ft_strchr("dDioscuUoOxXpbnCS", bs->tp))
+	if (ft_strchr("dDioscuUoOxXpbnC", bs->tp))
 	{
 		(bs->tp == 'd' || bs->tp == 'i' || bs->tp == 'D') ? print_di(bs) : 0;
-		(bs->tp == 's' || bs->tp == 'S') ? print_s(bs) : 0;
+		(bs->tp == 's') ? print_s(bs) : 0;
 		(bs->tp == 'c' || bs->tp == 'C') ? print_c(bs) : 0;
 		(bs->tp == 'u' || bs->tp == 'U') ? print_u(bs) : 0;
 		(bs->tp == 'X' || bs->tp == 'x') ? print_x(bs) : 0;
@@ -126,20 +113,4 @@ void	print_symbol(char **format, t_prntf *bs)
 		bs->r++;
 		(*format)++;
 	}
-}
-
-int		ft_strlen_utf8(int *str)
-{
-	int i;
-	int j;
-
-	i = 0;
-	j = 0;
-	while (str[i])
-	{
-		if ((str[i] & 192) != 128)
-			j++;
-		i++;
-	}
-	return (j);
 }

@@ -16,7 +16,7 @@ int		check_type(char c)
 {
 	if (c == 's' || c == 'p' || c == 'd' || c == 'i' || c == 'o' || c == 'u'
 		|| c == 'U' || c == 'X' || c == 'x' || c == 'c' || c == 'D' || c == 'O'
-		|| c == 'b' || c == 'n' || c == 'C' || c == 'S')
+		|| c == 'b' || c == 'n' || c == 'C')
 		return (1);
 	return (0);
 }

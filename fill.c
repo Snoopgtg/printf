@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-static void fill_precision(char **s, int *prc, va_list ap)
+static void	fill_precision(char **s, int *prc, va_list ap)
 {
 	*prc = 0;
 	(**s && !check_type(**s)) ? (*s)++ : 0;
@@ -38,7 +38,7 @@ static void fill_precision(char **s, int *prc, va_list ap)
 	}
 }
 
-void fill_digit(char *s, t_prntf *bs, va_list ap)
+void		fill_digit(char *s, t_prntf *bs, va_list ap)
 {
 	while (*s && (check_flags(*s) || ft_isdigit(*s) || check_length(*s)))
 	{
@@ -66,7 +66,7 @@ void fill_digit(char *s, t_prntf *bs, va_list ap)
 	}
 }
 
-void	fill_flags(char *s, t_prntf *bs)
+void		fill_flags(char *s, t_prntf *bs)
 {
 	while (*s && (check_afte_pers(*s) || ft_isdigit(*s)))
 	{
@@ -78,7 +78,7 @@ void	fill_flags(char *s, t_prntf *bs)
 	}
 }
 
-void	fill_basetoziro(t_prntf *bs)
+void		fill_basetoziro(t_prntf *bs)
 {
 	bs->nw = 0;
 	bs->m = 0;

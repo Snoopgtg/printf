@@ -18,7 +18,7 @@
 ** 'p' for write string using ft_putstr
 */
 
-void	print_aka_flags(int wl, char c, t_prntf *bs)
+void		print_aka_flags(int wl, char c, t_prntf *bs)
 {
 	if (c == '0' || c == ' ')
 		while (wl-- > 0)
@@ -97,7 +97,7 @@ static void	for_print_prc_m(int l, int w, t_prntf *bs)
 ** function for print precision
 */
 
-void	print_prc(t_prntf *bs)
+void		print_prc(t_prntf *bs)
 {
 	int l;
 	int w;
@@ -125,7 +125,7 @@ void	print_prc(t_prntf *bs)
 ** function for print precision when argument is negative
 */
 
-void	print_prc_m(t_prntf *bs)
+void		print_prc_m(t_prntf *bs)
 {
 	int l;
 	int w;

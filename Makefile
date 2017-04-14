@@ -25,11 +25,10 @@ OBJ =   ft_printf.o		\
 		check.o 		\
 		fill_n_is.o 	\
 		print_char.o	\
-		print_prec_flags.o 	\
-		print_type_uoxbn.o 	\
-		print_cast_pdi.o 	\
-		ft_strnew.o 		\
-		wchar.o
+		print_prec_flags.o \
+		print_type_uoxbn.o \
+		print_cast_pdi.o \
+		ft_strnew.o
 
 
 all: $(NAME)

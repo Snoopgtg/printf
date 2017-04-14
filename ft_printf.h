@@ -205,11 +205,4 @@ void				print_c(t_prntf *bs);
 void				print(t_prntf *bs);
 void				print_symbol(char **format, t_prntf *bs);
 
-void 				check_bit(int *nbr, int *r);
-void 				print_upper_s(int *s, int *r, int size, int f);
-
-int					ft_strlen_utf8(int *str);
-
-int					main(); //УДАЛИТЬ
-
 #endif
